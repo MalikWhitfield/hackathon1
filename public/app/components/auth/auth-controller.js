@@ -2,32 +2,21 @@ let _authService = {}
 
 function drawUserLogin() {
     console.log('not logged In')
-    document.getElementById('auth').innerHTML = `
-    <form onsubmit="app.controllers.authController.login(event)">
-    <input type="text" name="username" placeholder="username" required>
-        <input type="email" name="email" placeholder="email" required>
-        <input type="password" name="password" placeholder="password" required>
-        <button type="submit">Login</button>
-      </form>
+    document.getElementById("auth-status").innerHTML = `
+<button type="button" class="btn btn-dark btn-lg" data-toggle="modal" data-target="#signin">Login/Register</button>
       `
   
-    }
+   }
 
 function drawLogout() {
     console.log('logged in')
-    document.getElementById('auth').innerHTML = `<button onclick="app.controllers.authController.logout()">logout</button>`
+    document.getElementById('auth-status').innerHTML = `<button onclick="app.controllers.authController.logout()">logout</button>`
   
   }
 
   function _drawRegister() {
-    document.getElementById('auth').innerHTML = `
-    <form onsubmit="app.controllers.authController.register(event)">
-    <input type="text" name="username" placeholder="username" required>
-        <input type="email" name="email" placeholder="email" required>
-        <input type="password" name="password" placeholder="password" required>
-        <button type="submit">Register</button>
-      </form>
-      <p onclick="app.controllers.authController.showRegister()">Click to Register</p>
+    document.getElementById('auth-register').innerHTML = `<button onclick="app.controllers.authController.logout()">logout</button>
+    
       `
   }
 
