@@ -3,7 +3,7 @@ let MongoStore = require('connect-mongodb-session')(expressSession)
 
 
 let store = new MongoStore({
-  uri: 'mongodb://user1:hunter2@ds038888.mlab.com:38888/starlogs',
+  uri: 'mongodb://hackathon1:hackathon1@ds038888.mlab.com:38888/hackathon1',
   collection: "Sessions"
 })
 

@@ -1,5 +1,5 @@
 let mongoose = require('mongoose')
-const connectionString = 'mongodb://hackathon1:hackathon1@ds038888.mlab.com:38888/hackathon1'
+const connectionString = 'mongodb://hackathon2:hackathon2@ds038888.mlab.com:38888/hackathon1'
 let connection = mongoose.connection
 mongoose.connect(connectionString, {
   useNewUrlParser: true

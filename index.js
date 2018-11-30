@@ -4,7 +4,7 @@ require('./server/db/mlab-config')
 
 let server = express()
 
-const PORT = process.env.PORT || 9000
+const PORT = process.env.PORT || 9001
 
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
@@ -37,14 +37,14 @@ server.get('/', (req, res, next) => {
 
 
 
-let logRoutes = require('./server/routes/log-route')
-server.use('/api/logs', logRoutes)
+// let logRoutes = require('./server/routes/log-route')
+// server.use('/api/logs', logRoutes)
 
-let shipRoutes = require('./server/routes/ship-route')
-server.use('/api/ships', shipRoutes)
+// let shipRoutes = require('./server/routes/ship-route')
+// server.use('/api/ships', shipRoutes)
 
-let commentRoutes = require('./server/routes/comment-route')
-server.use('/api/comments', commentRoutes)
+// let commentRoutes = require('./server/routes/comment-route')
+// server.use('/api/comments', commentRoutes)
 
 server.use('*', (error, req, res, next) => {
   res.status(error.status || 400).send({ message: error.message })
