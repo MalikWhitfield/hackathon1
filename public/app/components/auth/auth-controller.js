@@ -27,6 +27,7 @@ function drawLogout() {
         <input type="password" name="password" placeholder="password" required>
         <button type="submit">Register</button>
       </form>
+      <p onclick="app.controllers.authController.showRegister()">Click to Register</p>
       `
   }
 
