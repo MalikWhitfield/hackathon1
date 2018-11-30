@@ -7,7 +7,9 @@ let schema = new Schema({
   user: { type: ObjectId, ref: 'User' },
   caption: { type: String, required: true },
   date: { type: Number, default: Date.now(), required: true },
-  comments: { type: String, ref: 'Comment' }
+  comments: { type: String, ref: 'Comment' },
+  url: { type: String, required: true },
+  vote: { type: Number }
 })
 
 let model = mongoose.model(name, schema)

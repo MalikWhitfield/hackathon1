@@ -37,8 +37,8 @@ server.get('/', (req, res, next) => {
 
 
 
-// let logRoutes = require('./server/routes/log-route')
-// server.use('/api/logs', logRoutes)
+let imageRoutes = require('./server/routes/image-route')
+server.use('/api/images', imageRoutes)
 
 // let shipRoutes = require('./server/routes/ship-route')
 // server.use('/api/ships', shipRoutes)
