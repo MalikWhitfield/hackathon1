@@ -1,5 +1,5 @@
 let router = require('express').Router()
-// let Users = require('../models/user')
+let Users = require('../models/user')
 // let Ships = require('../models/ship')
 let session = require('./session')
 
@@ -18,17 +18,12 @@ router.post('/login', (req, res, next) => {
 
 router.post('/register', (req, res, next) => {
   // @ts-ignore
-  req.body.hash = Users.hashPassword(req.body.password)
-  Ships.find({})
-    .then(ships => {
-      let ship = ships[Math.floor(Math.random() * ships.length)]._id
-      req.body.ship = ship
-      Users.create(req.body)
-        .then(user => {
-          delete user._doc.hash
-          req.session.uid = user._id
-          res.send(user)
-        })
+  let hash = Users.hashPassword(req.body.password)
+  Users.create({ email: req.body.email, username: req.body.username, hash })
+    .then(user => {
+      delete user._doc.hash
+      req.session.uid = user._id
+      res.send(user)
     })
     .catch(err => {
       next(new Error("Invalid Username or Password"))
