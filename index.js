@@ -37,14 +37,14 @@ server.get('/', (req, res, next) => {
 
 
 
-// let logRoutes = require('./server/routes/log-route')
-// server.use('/api/logs', logRoutes)
+let imageRoutes = require('./server/routes/image-route')
+server.use('/api/images', imageRoutes)
 
-// let shipRoutes = require('./server/routes/ship-route')
-// server.use('/api/ships', shipRoutes)
+let videoRoutes = require('./server/routes/video-route')
+server.use('/api/videos', videoRoutes)
 
-// let commentRoutes = require('./server/routes/comment-route')
-// server.use('/api/comments', commentRoutes)
+let commentRoutes = require('./server/routes/comment-route')
+server.use('/api/comments', commentRoutes)
 
 server.use('*', (error, req, res, next) => {
   res.status(error.status || 400).send({ message: error.message })

@@ -1,27 +1,27 @@
 let router = require('express').Router()
-let Images = require('../models/image')
+let Videos = require('../models/video')
 let Users = require('../models/user')
 
 //get log by id
 router.get('/:id', (req, res, next) => {
-  Images.findById(req.params.id)
+  Videos.findById(req.params.id)
     .then(log => res.send({ log }))
     .catch(next)
 })
 
-router.get('/images/:userId', (req, res, next) => {
+router.get('/videos/:userId', (req, res, next) => {
   Users.findById(req.params.userId)
-    .then(image => {
-      Images.find({ userId: image._id })
-        .then(images => {
-          res.send(images)
+    .then(video => {
+      Videos.find({ userId: video._id })
+        .then(Videos => {
+          res.send(Videos)
         })
     })
     .catch(next)
 })
 
 router.get('/', (req, res, next) => {
-  Images.find({})
+  Videos.find({})
     .then(log => res.send({ log }))
     .catch(next)
 })
@@ -32,9 +32,9 @@ router.post('/', (req, res, next) => {
     .then(user => {
       req.body.user = req.session.uid
       // req.body.shipId = user.ship
-      Images.create(req.body)
-        .then(image => {
-          res.send(image)
+      Videos.create(req.body)
+        .then(video => {
+          res.send(video)
         })
         .catch(next)
     })
@@ -44,14 +44,14 @@ router.post('/', (req, res, next) => {
 
 
 
-//delete an image
+//delete an video
 router.delete('/:id', (req, res, next) => {
   //Validates is creator before deleting
-  Images.deleteOne({ _id: req.params.id, creatorId: req.session.uid })
-    .then(image => {
-      Users.findOneAndUpdate({ _id: req.session.uid }, { image: undefined })
+  Videos.deleteOne({ _id: req.params.id, creatorId: req.session.uid })
+    .then(video => {
+      Users.findOneAndUpdate({ _id: req.session.uid }, { video: undefined })
         .then(user => {
-          res.send({ message: "DELORTED", data: image })
+          res.send({ message: "DELORTED", data: video })
         })
     })
     .catch(next)
