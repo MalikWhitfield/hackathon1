@@ -3,7 +3,8 @@ let bodyParser = require('body-parser')
 require('./server/db/mlab-config')
 
 let server = express()
-const PORT = 9001
+
+const PORT = process.env.PORT || 9000
 
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
