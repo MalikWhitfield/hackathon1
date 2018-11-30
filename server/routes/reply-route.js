@@ -4,6 +4,7 @@ let Users = require('../models/user')
 let Comments = require('../models/comment')
 let Videos = require('../models/video')
 
+
 // //get log by id
 // router.get('/:id', (req, res, next) => {
 //   Images.findById(req.params.id)
@@ -34,14 +35,26 @@ router.get('/videos/:videoId', (req, res, next) => {
     .catch(next)
 })
 
-// THIS SHOWS ALL COMMENTS VV
+router.get('/comments/:videoId', (req, res, next) => {
+  Comments.findById(req.params.commentId)
+    .then(video => {
+      Videos.find({ commentId: video._id })
+        .then(comments => {
+          res.send(comments)
+        })
+    })
+    .catch(next)
+})
+
+
+//THIS SHOWS ALL COMMENTS VV
 router.get('/', (req, res, next) => {
   Comments.find({})
-    .then(comments => res.send({ comments }))
+    .then(log => res.send({ log }))
     .catch(next)
 })
 
-router.post('/:imageId', (req, res, next) => {
+router.post('/:commentId', (req, res, next) => {
   // debugger
   // Users.findOne(req.session.uid)
   // req.body.user = req.session.uid
@@ -54,18 +67,18 @@ router.post('/:imageId', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/:videoId', (req, res, next) => {
-  // debugger
-  // Users.findOne(req.session.uid)
-  // req.body.user = req.session.uid
-  req.body.author = req.session.uid
-  // req.body.shipId = user.ship
-  Comments.create(req.body)
-    .then(comment => {
-      res.send(comment)
-    })
-    .catch(next)
-})
+// router.post('/:videoId', (req, res, next) => {
+//   // debugger
+//   // Users.findOne(req.session.uid)
+//   // req.body.user = req.session.uid
+//   req.body.author = req.session.uid
+//   // req.body.shipId = user.ship
+//   Comments.create(req.body)
+//     .then(comment => {
+//       res.send(comment)
+//     })
+//     .catch(next)
+// })
 
 
 
@@ -84,23 +97,12 @@ router.delete('/:id', (req, res, next) => {
     .catch(next)
 })
 
-
-
-//REPLIES
-router.post('/:commentId/subcomments', (req, res, next) => {
-  req.body.author = req.session.uid
-  Comments.findById(req.params.commentId)
-    .then(comment => {
-      comment.subComments.push(req.body)
-      comment.save(err => {
-        if (err) {
-          return next(err)
-        }
-        res.send(comment)
-      })
-    })
-
-})
-
+// //update/modify an existing log
+// router.put('/:id', (req, res, next) => {
+//   //Validates is creator before updating
+//   Logs.findOneAndUpdate({ _id: req.params.id, creatorId: req.session.uid }, { new: true })
+//     .then(log => res.send(log))
+//     .catch(next)
+// })
 
 module.exports = router

@@ -2,7 +2,7 @@ let mongoose = require('mongoose')
 let bcrypt = require('bcryptjs')
 let Schema = mongoose.Schema
 let ObjectId = Schema.Types.ObjectId
-const SALT = 15
+const SALT = 10
 let name = "User"
 
 //user schema
