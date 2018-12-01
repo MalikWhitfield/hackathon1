@@ -2,17 +2,23 @@ let router = require('express').Router()
 let Images = require('../models/image')
 let Users = require('../models/user')
 
-//get log by id
+//get image by id
 router.get('/:id', (req, res, next) => {
   Images.findById(req.params.id)
-    .then(log => res.send({ log }))
-    .catch(next)
+  .populate('comments').exec((err, fullImage) => {
+    if (err) {
+      return next(err)
+    }
+    res.send(fullImage)
+  })
+    // .then(image => res.send({ image }))
+    // .catch(next)
 })
-
+// get images by user id 
 router.get('/images/:userId', (req, res, next) => {
   Users.findById(req.params.userId)
     .then(image => {
-      Images.find({ userId: image._id })
+      Images.find({ userId: image._id})
         .then(images => {
           res.send(images)
         })
@@ -20,18 +26,17 @@ router.get('/images/:userId', (req, res, next) => {
     .catch(next)
 })
 
+// get all images
 router.get('/', (req, res, next) => {
   Images.find({})
-    .then(log => res.send({ log }))
+    .then(image => res.send({ image }))
     .catch(next)
 })
 
 router.post('/', (req, res, next) => {
-  // debugger
   Users.findOne(req.session.uid)
     .then(user => {
-      req.body.user = req.session.uid
-      // req.body.shipId = user.ship
+      req.body.user = req.session.username
       Images.create(req.body)
         .then(image => {
           res.send(image)

@@ -15,7 +15,7 @@ const subComment = new Schema({
 //Comment schema
 let schema = new Schema({
   author: { type: ObjectId, ref: 'User' },
-  imageId: { type: ObjectId, ref: 'Image' },
+  imageId: { type: ObjectId, ref: 'Image', required: true },
   videoId: { type: ObjectId, ref: 'Video' },
   description: { type: String, required: true },
   date: { type: Number, default: Date.now(), required: true },

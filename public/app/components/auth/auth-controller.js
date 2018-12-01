@@ -25,23 +25,23 @@ function drawLogout() {
         _authService = auth
         _authService.authenticate(drawLogout, drawUserLogin)
       }
-      login(event) {
+      login(event, drawImageButton) {
         event.preventDefault();
         let creds = {
         username: event.target.username.value,
           email: event.target.email.value,
           password: event.target.password.value
         }
-        _authService.login(creds, drawLogout)
+        _authService.login(creds, drawLogout, drawImageButton)
       }
-      register(event) {
+      register(event, drawImageButton) {
         event.preventDefault();
         let creds = {
             username: event.target.username.value,
           email: event.target.email.value,
           password: event.target.password.value
         }
-        _authService.register(creds, drawLogout)
+        _authService.register(creds, drawLogout, drawImageButton)
       }
       logout() {
         _authService.logout(drawUserLogin)

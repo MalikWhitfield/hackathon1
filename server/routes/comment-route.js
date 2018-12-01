@@ -42,11 +42,8 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/:imageId', (req, res, next) => {
-  // debugger
-  // Users.findOne(req.session.uid)
-  // req.body.user = req.session.uid
   req.body.author = req.session.uid
-  // req.body.shipId = user.ship
+  req.body.imageId = req.params.imageId
   Comments.create(req.body)
     .then(comment => {
       res.send(comment)
@@ -55,11 +52,7 @@ router.post('/:imageId', (req, res, next) => {
 })
 
 router.post('/:videoId', (req, res, next) => {
-  // debugger
-  // Users.findOne(req.session.uid)
-  // req.body.user = req.session.uid
   req.body.author = req.session.uid
-  // req.body.shipId = user.ship
   Comments.create(req.body)
     .then(comment => {
       res.send(comment)

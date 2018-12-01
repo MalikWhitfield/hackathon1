@@ -4,7 +4,8 @@ let name = "Image"
 let ObjectId = Schema.Types.ObjectId
 
 let schema = new Schema({
-  user: { type: ObjectId, ref: 'User' },
+  userId: { type: ObjectId, ref: 'User' },
+  username: {type: String, required: true},
   caption: { type: String, required: true },
   date: { type: Number, default: Date.now(), required: true },
   comments: { type: String, ref: 'Comment' },

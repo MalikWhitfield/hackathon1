@@ -1,6 +1,5 @@
 let router = require('express').Router()
 let Users = require('../models/user')
-// let Ships = require('../models/ship')
 let session = require('./session')
 
 

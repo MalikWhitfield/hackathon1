@@ -1,4 +1,4 @@
-// import ImageController from "./components/images/image-controller.js";
+import ImageController from "./components/images/image-controller.js";
 // import CommentController from "./components/comments/comment-controller.js";
 // import ReplyController from "./components/replies/reply-controller.js";
 import AuthController from "./components/auth/auth-controller.js";
@@ -13,7 +13,7 @@ class App {
   constructor() {
     this.controllers = {
       authController: new AuthController(auth),
-      // imageController: new ImageController(auth),
+      imageController: new ImageController(auth),
       // commentController: new CommentController(auth),
       // replyController: new ReplyController(auth)
     }

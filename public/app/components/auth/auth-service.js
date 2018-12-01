@@ -14,21 +14,23 @@ let _auth = axios.create({
         return _user
       }
     
-      login(creds, draw) {
+      login(creds, draw, drawImageButton) {
         _auth.post('login', creds)
           .then(res => {
             _user = res.data
             draw()
+            drawImageButton()
           })
           .catch(err => {
             console.error(err)
           })
       }
-      register(creds, draw) {
+      register(creds, draw, drawImageButton) {
         _auth.post("register", creds)
           .then(res => {
             _user = res.data
             draw()
+            drawImageButton()
           }).catch(err => {
             console.error(err)
           })

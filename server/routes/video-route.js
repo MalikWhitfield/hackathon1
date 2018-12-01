@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
   // debugger
   Users.findOne(req.session.uid)
     .then(user => {
-      req.body.user = req.session.uid
+      req.body.username = req.session.uid
       // req.body.shipId = user.ship
       Videos.create(req.body)
         .then(video => {
