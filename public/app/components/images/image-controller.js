@@ -3,6 +3,12 @@ import ImageService from "./image-service.js";
 let _is = new ImageService
 let _auth = {}
 
+// let allImages = []
+
+// allImages.forEach(image => {
+  
+// }
+
 
 function draw() {
     let template = ''
