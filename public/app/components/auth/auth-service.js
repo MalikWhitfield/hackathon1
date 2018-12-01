@@ -7,30 +7,30 @@ let _auth = axios.create({
   let _user = {}
   
   export default class AuthService {
-    constructor() {
-  
+    constructor(drawImageButton) {
+      this.drawImageButton = drawImageButton
     }
     get user() {
         return _user
       }
     
-      login(creds, draw, drawImageButton) {
+      login(creds, draw) {
         _auth.post('login', creds)
           .then(res => {
             _user = res.data
             draw()
-            drawImageButton()
+            this.drawImageButton()
           })
           .catch(err => {
             console.error(err)
           })
       }
-      register(creds, draw, drawImageButton) {
+      register(creds, draw) {
         _auth.post("register", creds)
           .then(res => {
             _user = res.data
             draw()
-            drawImageButton()
+            this.drawImageButton()
           }).catch(err => {
             console.error(err)
           })
@@ -40,6 +40,7 @@ let _auth = axios.create({
           .then(res => {
             _user = res.data
             drawOnSuccess()
+            this.drawImageButton()
           }).catch(err => {
             console.error(err)
             drawOnFail()

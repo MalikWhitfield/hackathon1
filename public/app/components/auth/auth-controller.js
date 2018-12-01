@@ -10,12 +10,12 @@ function drawUserLogin() {
 
 function drawLogout() {
     console.log('logged in')
-    document.getElementById('auth-status').innerHTML = `<button onclick="app.controllers.authController.logout()">logout</button>`
+    document.getElementById('auth-status').innerHTML = `<button onclick="app.controllers.authController.logout()" class="btn btn-dark btn-lg">Logout</button>`
   
   }
 
   function _drawRegister() {
-    document.getElementById('auth-register').innerHTML = `<button onclick="app.controllers.authController.logout()">logout</button>
+    document.getElementById('auth-register').innerHTML = `<button onclick="app.controllers.authController.logout()">Logout</button>
     
       `
   }
@@ -25,23 +25,24 @@ function drawLogout() {
         _authService = auth
         _authService.authenticate(drawLogout, drawUserLogin)
       }
-      login(event, drawImageButton) {
+      login(event) {
         event.preventDefault();
+        
         let creds = {
         username: event.target.username.value,
           email: event.target.email.value,
           password: event.target.password.value
         }
-        _authService.login(creds, drawLogout, drawImageButton)
+        _authService.login(creds, drawLogout)
       }
-      register(event, drawImageButton) {
+      register(event) {
         event.preventDefault();
         let creds = {
             username: event.target.username.value,
           email: event.target.email.value,
           password: event.target.password.value
         }
-        _authService.register(creds, drawLogout, drawImageButton)
+        _authService.register(creds, drawLogout)
       }
       logout() {
         _authService.logout(drawUserLogin)

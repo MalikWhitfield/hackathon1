@@ -15,6 +15,8 @@ let _images = []
 let _comments = {
     //key imgId : value [comments]
 }
+let _votes = 0
+
 
 export default class ImageService {
 
@@ -24,6 +26,9 @@ export default class ImageService {
     get comments(){
         return _comments
     }
+get votes(){
+    return _votes
+}
 
     getImages(draw) {
         console.log("getting the images")
@@ -31,6 +36,7 @@ export default class ImageService {
         .then((res) => {
             _images = res.data.image
             this.getComments(draw)
+            // this.getVotes(draw)
         })
         .catch(logError)
     }  
@@ -55,8 +61,63 @@ export default class ImageService {
 
     postImage(image, draw) {
         _api.post('/images', image)
-        .then((res) => {
+            .then((res) => {
             this.getImages(draw)
         })
     }
+
+    upVote(imgId, draw) {
+        let image = {}
+        _images.forEach(i => {
+            if(i._id == imgId) {
+                image = i;
+                image.vote++
+            }    
+        })
+        _api.put('/images/'+ imgId, image)
+        .then((res) => {
+            this.getImages(draw);    
+        })
+        
+    }
+    downVote(imgId, draw) {
+        let image = {}
+        _images.forEach(i => {
+            if(i._id == imgId) {
+                image = i;
+                image.vote--
+            }    
+        })
+        _api.put('/images/'+ imgId, image)
+        .then((res) => {
+            // debugger
+            this.getImages(draw);    
+        })
+
+    // getVotes(draw){
+    // console.log('getting the votes')
+    // _api.get('/images')
+    // .then(res => {
+    //     res.data.image.forEach(img => {
+    //         if(!_votes[img.imageId]){
+    //             _votes[img.imageId] = []
+    //         }
+    //         _votes[img.imageId].push(vote)
+    //     });
+    //     draw()
+    // })
+    // .catch(err =>{
+    //     console.log(err)
+    // })
+    // }
+    }
+    addComment(comment, draw) {
+        _api.post('/comments/' + comment.imgId, comment)
+            .then(res => {
+                debugger
+                this.getComments(draw)
+            })
+    }
+
+
 }

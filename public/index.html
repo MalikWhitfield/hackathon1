@@ -6,17 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Hackathon1</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope" rel="stylesheet">
+        
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <button id="home" class="btn btn-dark btn-lg"><a href="#">HOME</a></button>
+            <button id="home" class="btn btn-dark btn-lg"><a href="#"><i class="fas fa-home fas-x"></i></a></button>
             <div id="post-img"></div>
-            <div id="auth-status">Sign Up</div>
+            <div id="auth-status"></div>
         </div>
     </nav>
     <div id="signin" tabindex="-1" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -35,33 +40,35 @@
 
                     <form onsubmit="app.controllers.authController.login(event, app.controllers.imageController.drawNew)">
                         <div class="form-group">
-                                <label for="username">Username</label>
+                            <label for="username">Username</label>
                             <input type="text" name="username" placeholder="username" class="form-control" required>
                         </div>
                         <div class="form-group">
-                                <label for="email">Email address</label>
-                        <input type="email" name="email" placeholder="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                                <label for="password">Password</label>
-                            <input type="password" name="password" placeholder="password" class="form-control"required>
-                        </div>
-                        <button type="submit" data-dismiss="modal" class="btn btn-success btn-sm">Login</button>
-                    </form>
-
-                    <form onsubmit="app.controllers.authController.register(event, app.controllers.imageController.drawNew)">
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" name="username" placeholder="username" class="form-control" required>   
-                            <div class="form-group">
                             <label for="email">Email address</label>
-                            <input type="email" name="email" placeholder="email" class="form-control"required>
+                            <input type="email" name="email" placeholder="email" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" name="password" placeholder="password" class="form-control" required>
                         </div>
-                        <button type="submit" data-dismiss="modal" class="btn btn-danger btn-sm">Register</button>
+                        <button type="submit" class="btn btn-success btn-sm">Login</button>
+                    </form>
+
+                    <form onsubmit="app.controllers.authController.register(event, app.controllers.imageController.drawNew)">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" placeholder="username" class="form-control" required>
+                        </div>
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input type="email" name="email" placeholder="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" placeholder="password" class="form-control"
+                                    required>
+                            </div>
+                            <button type="submit" class="btn btn-danger btn-sm">Register</button>
                     </form>
                 </div>
 
@@ -83,12 +90,13 @@
                 <div class="modal-body">
                     <form onsubmit="app.controllers.imageController.postImage(event)">
                         <div class="form-group">
-                        <label for="caption">Caption</label>
-                            <input type="text" name="caption" placeholder="Caption" class="form-control"required>
+                            <label for="caption">Caption</label>
+                            <input type="text" name="caption" placeholder="Caption" class="form-control" required>
                         </div>
-                    <div class="form-group">
-                            <label for="imgUrl">Image Url/label>
-                            <input type="url" name="imgUrl" placeholder="Gimme dat pic" class="form-control"required>
+                        <div class="form-group">
+                            <label for="imgUrl">Image Url</label>
+                                <input type="url" name="imgUrl" placeholder="Gimme dat pic" class="form-control"
+                                    required>
                         </div>
                         <button type="submit">Post Image</button>
                     </form>
@@ -100,7 +108,15 @@
 
 
     <div id="auth"></div>
+    <div class="container">
+<div class="row">
+    <div class="col-12 d-flex justify-content-center mt-3">
     <div id="images"></div>
+    </div>
+</div>
+</div>
+
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

@@ -4,9 +4,15 @@ import ImageController from "./components/images/image-controller.js";
 import AuthController from "./components/auth/auth-controller.js";
 import AuthService from "./components/auth/auth-service.js";
 
+function drawPostImageButton() {
+
+  document.getElementById("post-img").innerHTML = `
+    <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" data-target="#postimage">Post Image</button>`
+}
+
 
 //only every instatiate Auth Service once, pass refrenece to all controllers
-let auth = new AuthService()
+let auth = new AuthService(drawPostImageButton)
 
 
 class App {

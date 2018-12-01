@@ -3,14 +3,8 @@ import ImageService from "./image-service.js";
 let _is = new ImageService
 let _auth = {}
 
-function showImages() {
-    _is.getImages(draw)
-}
-
-
 
 function draw() {
- 
     let template = ''
     _is.images.forEach(img => {
     console.log(img)
@@ -29,26 +23,46 @@ function draw() {
         `
       })
     }
+      let votes = _is.votes
+  let voteTemplate = `
+  <p>${img.vote}</p>
+  `
+
+    
     template += `
-      <img src= "${img.url}" height="200" width="200" data-toggle="modal" data-target="#image-${img._id} ">
+      <img src= "${img.url}" height="200" width="200" data-toggle="modal" data-target="#image-${img._id}">
       <div class="modal fade" id="image-${img._id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-            <div class="modal-header">
-              <h3>${_auth.username}</h3>
+            <div class="modal-header top">
+              <h3>${img.username}</h3>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              <img src= "${img.url}" height="300" width="300">
+
+            <div class="modal-body center">
+              <img src= "${img.url}" height="300" width="300" class="center">
             </div>
-            <div class="modal-footer">
-            <h2>Caption: ${img.caption}</h2>
+
+            <div class="modal-footer left">
+              <h2>${img.caption}</h2>
             </div>
-            <div class="modal-footer">
-            <p>Comments:</p>
-            <ul>${commentTemplate}</ul>
+
+            <div class="modal-footer left">
+              <form onsubmit="app.controllers.imageController.addComment(event, '${img._id}')">
+                <input type="textarea" class="form-control" name="description"/>
+                <button type="submit" class="btn btn-primary">Add Comment</button>
+              </form>
+              <p>Comments:</p>
+              <ul>${commentTemplate}</ul>
+            </div>
+
+            <div class="modal-footer left">
+              <p>Votes:</p>
+              <ul>${voteTemplate}</ul>
+              <button data-dismiss="modal" onclick="app.controllers.imageController.upVote('${img._id}')"><i class="fas fa-thumbs-up sm"></i></button>
+              <button data-dismiss="modal" onclick="app.controllers.imageController.downVote('${img._id}')"><i class="fas fa-thumbs-down sm"></i></button>
             </div>
           </div>
         </div>
@@ -58,28 +72,40 @@ function draw() {
     document.getElementById('images').innerHTML = template
 }
 
-function postImage(e) {
-  e.preventDefault()
-  let form = event.target
-  let image = {
-    caption: form.caption.value,
-    imgUrl: form.imgUrl.value
-  }
-  if (!_auth.user._id) { return alert("Please Login to Post") }
-
-  _is.postImage(image, draw)
-}
 
 export default class ImageController {
-    constructor(auth){
-      _auth = auth
-      _is.getImages(draw)
-    }
-  drawNew(image) {
-
-    document.getElementById("post-img").innerHTML = `
-    <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" data-target="#postimage">Post Image</button>`
+  constructor(auth){
+    _auth = auth
+    _is.getImages(draw)
   }
-
-
+  
+  
+  postImage(e) {
+    e.preventDefault()
+    let form = event.target
+    let image = {
+      caption: form.caption.value,
+      url: form.imgUrl.value
+    }
+    if (!_auth.user._id) { return alert("Please Login to Post") }
+  
+    _is.postImage(image, draw)
+  }
+  
+  upVote(imgId) {
+    _is.upVote(imgId, draw)
+  }
+  downVote(imgId) {
+    _is.downVote(imgId, draw)
+  }
+  addComment(e, imgId) {
+    e.preventDefault()
+    let form = e.target
+    let comment = {
+      description: form.description.value,
+      imageId: imgId      
+    }
+    if (!_auth.user._id) { return alert("Please Login to Post a Comment") }
+    _is.addComment(comment, draw)
+  }
 }

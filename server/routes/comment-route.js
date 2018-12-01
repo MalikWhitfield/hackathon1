@@ -41,9 +41,8 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/:imageId', (req, res, next) => {
+router.post('/', (req, res, next) => {
   req.body.author = req.session.uid
-  req.body.imageId = req.params.imageId
   Comments.create(req.body)
     .then(comment => {
       res.send(comment)
@@ -51,14 +50,20 @@ router.post('/:imageId', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/:videoId', (req, res, next) => {
-  req.body.author = req.session.uid
-  Comments.create(req.body)
-    .then(comment => {
-      res.send(comment)
-    })
-    .catch(next)
-})
+// router.post('/', (req, res, next) => {
+//   Comments.find({})
+//     .then(comments => res.send({ comments }))
+//   .catch(next)
+// })
+
+// router.post('/:videoId', (req, res, next) => {
+//   req.body.author = req.session.uid
+//   Comments.create(req.body)
+//     .then(comment => {
+//       res.send(comment)
+//     })
+//     .catch(next)
+// })
 
 
 

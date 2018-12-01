@@ -1,6 +1,7 @@
 let router = require('express').Router()
 let Images = require('../models/image')
 let Users = require('../models/user')
+let Comments = require('../models/comment')
 
 //get image by id
 router.get('/:id', (req, res, next) => {
@@ -36,7 +37,8 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   Users.findOne(req.session.uid)
     .then(user => {
-      req.body.user = req.session.username
+      req.body.userId = req.session.uid
+      req.body.username = user.username
       Images.create(req.body)
         .then(image => {
           res.send(image)
@@ -45,7 +47,13 @@ router.post('/', (req, res, next) => {
     })
 })
 
-
+router.put('/:imageId', (req, res, next) => {
+  Images.findOneAndUpdate({ _id: req.params.imageId}, req.body, {new: true})
+  .then(image => {
+    res.send(image)
+  })
+  .catch(next)
+})
 
 
 
